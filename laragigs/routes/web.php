@@ -32,3 +32,5 @@ Route::get('/', [ListingController::class, 'index']);
 
 // Single Listings
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+Route::get('/searchDb', [ListingController::class, 'searchDb']);

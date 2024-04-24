@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Listing;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Print_;
 
 class ListingController extends Controller
 {
-    public function index(){
-        dd(request());
+    // // Show all listings
+    public function index() {
         return view('listings.index', [
-            'listings' => Listing::latest()->get()
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 
-    public function show(Listing $listing){
+    // public function searchDb(Request $request){
+    //     $search = $request->search;
+    //     $query = DB::table('listings')->where('title', 'like' , '%' . $search . '%')->get();
+    //     echo "<pre>"; print_r($query);exit;
+    // }
+
+    //Show single listing
+    public function show(Listing $listing) {
         return view('listings.show', [
             'listing' => $listing
         ]);
