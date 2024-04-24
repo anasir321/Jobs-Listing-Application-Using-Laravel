@@ -29,4 +29,26 @@ class ListingController extends Controller
             'listing' => $listing
         ]);
     }
+
+    // create a listing using form
+    public function create(){
+        return view('listings.create');
+    }
+
+    // store listing data
+    public function store(Request $request){
+        dd($request->file('logo'));
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required', Rule::unique('listings', 'company')],
+            'location' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
+
+        Listing::create($formFields);
+
+        return redirect("/")->with('message', 'Listing created successfully');
+    }
 }

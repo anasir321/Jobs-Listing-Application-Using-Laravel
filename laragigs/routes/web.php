@@ -30,7 +30,14 @@ use App\Http\Controllers\ListingController;
 // All Listings
 Route::get('/', [ListingController::class, 'index']);
 
+// create a listing using form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+// Store a listing
+Route::post('/listings', [ListingController::class, 'store']);
+
 // Single Listings
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
-Route::get('/searchDb', [ListingController::class, 'searchDb']);
+// custom method to search for a listing
+// Route::get('/searchDb', [ListingController::class, 'searchDb']);
